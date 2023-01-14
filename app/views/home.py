@@ -1,5 +1,6 @@
-
-from app.models import *
+from app.models.ConfigurationSetting import ConfigurationSetting
+from app.models.KeyWordEventsFile import KeyWordEventsFile
+from app.models.KeyWordDevicesFile import KeyWordDevicesFile
 from django.shortcuts import render
 
 

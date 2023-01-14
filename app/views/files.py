@@ -1,9 +1,12 @@
-from app.forms import *
-from django.views.generic import *
-from app.models import *
+from app.forms.KeyWordsEventsForm import KeyWordsEventsForm
+from app.forms.KeyWordsDevicesForm import KeyWordsDevicesForm
+from app.forms.FileForm import FileForm
+from django.views.generic import ListView
+from app.models.LoadData import LoadData
 from django.contrib import messages
 from django.shortcuts import render, redirect
-from app.utils import *
+from app.utils import is_there_events_file_uploaded, is_there_devices_file_uploaded, remove_accent
+import pandas as pd
 
 
 def delete_file(request, pk):

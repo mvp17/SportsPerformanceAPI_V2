@@ -1,12 +1,16 @@
 from django.urls import path
-from app.views.home import *
-from app.views.signup import *
-from app.views.configuration import *
-from app.views.user import *
-from app.views.session import *
-from app.views.files import *
-from app.views.data_analytics import *
-from app.views.chart import *
+from app.views.home import home
+from app.views.signup import signup
+from app.views.configuration import configuration
+from app.views.user import user_profile, inactive_user
+from app.views.session import exit_session, delete_session
+from app.views.files import FileList, \
+                            upload_csv_file, \
+                            set_key_words_events_file, \
+                            set_key_words_devices_file, \
+                            delete_file
+from app.views.data_analytics import data_analytics
+from app.views.chart import chart
 
 
 urlpatterns = [

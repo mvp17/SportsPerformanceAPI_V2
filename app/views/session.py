@@ -1,4 +1,6 @@
-from app.models import *
+from app.models.KeyWordEventsFile import KeyWordEventsFile
+from app.models.KeyWordDevicesFile import KeyWordDevicesFile
+from app.models.ConfigurationSetting import ConfigurationSetting
 from django.shortcuts import render, redirect
 
 
@@ -12,7 +14,7 @@ def exit_session(request):
     })
 
 
-def delete_session(request):
+def delete_session():
     KeyWordEventsFile.load().delete()
     KeyWordDevicesFile.load().delete()
     ConfigurationSetting.load().delete()

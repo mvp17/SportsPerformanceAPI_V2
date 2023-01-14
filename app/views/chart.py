@@ -1,7 +1,9 @@
-from app.models import *
+import math
+from app.models.KeyWordEventsFile import KeyWordEventsFile
 from django.contrib import messages
 from django.shortcuts import render
-from app.utils import *
+from app.models.LoadData import LoadData
+from app.utils import is_there_events_file_uploaded, get_events_csv_dict, float_data_to_int_data
 import json
 
 

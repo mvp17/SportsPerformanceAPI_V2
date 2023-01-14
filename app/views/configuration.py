@@ -1,8 +1,17 @@
-from app.forms import *
-from app.models import *
+import pandas as pd
+from app.forms.SettingsForm import SettingsForm
+from app.models.LoadData import LoadData
+from app.models.KeyWordEventsFile import KeyWordEventsFile
+from app.models.KeyWordDevicesFile import KeyWordDevicesFile
 from django.contrib import messages
 from django.shortcuts import render, redirect
-from app.utils import *
+from app.utils import is_there_events_file_uploaded,  \
+                      is_there_devices_file_uploaded, \
+                      remove_accent,                  \
+                      process_device_data,            \
+                      process_event_data,             \
+                      get_events_csv_dict,            \
+                      get_init_time_and_fin_time
 
 
 def configuration(request):

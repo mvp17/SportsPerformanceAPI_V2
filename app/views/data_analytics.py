@@ -1,8 +1,21 @@
-from app.models import *
+from app.models.LoadData import LoadData
+from app.models.KeyWordEventsFile import KeyWordEventsFile
+from app.models.KeyWordDevicesFile import KeyWordDevicesFile
+from app.models.ConfigurationSetting import ConfigurationSetting
 from django.contrib import messages
 from django.shortcuts import render
-from app.utils import *
+from app.utils import is_there_devices_file_uploaded, \
+                      is_there_events_file_uploaded,  \
+                      process_device_data,            \
+                      process_event_data,             \
+                      get_events_csv_dict,            \
+                      get_init_time_and_fin_time,     \
+                      float_data_to_int_data
 import json
+import pandas as pd
+import os
+import math
+import unidecode
 
 
 def data_analytics(request):
