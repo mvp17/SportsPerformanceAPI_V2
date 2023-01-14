@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block Title %} <title>Home</title> {% endblock %}
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+
+     {% load static %}
+    <link rel="stylesheet" href="{% static '/style/base.css' %}">
+
+    <style>
+    img {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    /* Three image containers (use 25% for four, and 50% for two, etc) */
+    .column {
+      float: left;
+      width: 33.33%;
+      padding: 5px;
+    }
+
+    /* Clear floats after image containers */
+    .row::after {
+      content: "";
+      clear: both;
+      display: table;
+    }
+
+    .row {
+      display: flex;
+    }
+
+    .column {
+      flex: 33.33%;
+      padding: 5px;
+    }
+    </style>
+</head>
+<body>
+
+<div>
+    <div>
+        {% block content %}
+
+            {% if user.is_authenticated %}
+                {% block nav %}
+
+                    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav mr-auto">
+                                <li class="nav-item active">
+                                    <a class=" nav-link" href="{% url 'home' %}"> Home</a>
+                                </li>
+
+                                <li class="nav-item active">
+                                    <a class=" nav-link" href="{% url 'settings' %}"> Settings</a>
+                                </li>
+
+                                <li class="nav-item active">
+                                    <a class=" nav-link" href="{% url 'file_list' %}"> Files</a>
+                                </li>
+
+                                <li class="nav-item active">
+                                    <a class=" nav-link" href="{% url 'data analytics' %}"> Data analytics</a>
+                                </li>
+
+                                <li class="nav-item active">
+                                    <a class=" nav-link" href="{% url 'chart' %}"> Chart</a>
+                                </li>
+
+                            </ul>
+                            <ul class="navbar-nav margin-right: auto">
+                                <li class="nav-item" >
+                                    <a class="navbar-brand" href="{% url 'user_profile' %}"> Profile: {{ user.username }}</a>
+                                </li>
+
+                                <li class="nav-item active">
+                                    <a class=" nav-link" href="{% url 'exit' %}"> Exit</a>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </nav>
+
+                {% endblock %}
+
+                {% block info %}
+
+                    <h1> Welcome home!</h1>
+                    <div class = "row">
+                        <div class="column">
+                            <div class="container" style="margin: 20px 70px ">
+                                <h6 class="alert alert-warning" style="width: 700px; margin: 15px"> The format for saving the files must be of the type
+                                        "CSV (delimited by commas) (* .csv)".</h6>
+
+                                {% if is_there_configuration == 1 %}
+                                    <h6 class="alert alert-warning" style="width: 700px; margin: 15px">
+                                        There are settings configured. The parameters are as followed. Please if they are not
+                                        for your analysis session go to settings and change them.</h6>
+                                    <h6 class="alert alert-primary" style="width: 380px; margin: 15px">
+                                        The initial filtering time is: {{ init_time }} milliseconds</h6>
+                                    <h6 class="alert alert-primary" style="width: 380px; margin: 15px">
+                                        The final filtering time is: {{ fin_time }} milliseconds</h6>
+                                    <h6 class="alert alert-primary" style="width: 300px; margin: 15px">
+                                        The settings frequency is: {{ frequency }} Hz</h6>
+                                {% endif %}
+                                {% if is_there_key_words_events == 1 %}
+                                    <h6 class="alert alert-warning" style="width: 700px; margin: 15px">
+                                        There are key words for events file registered. Please if they are not
+                                        for your analysis session go to the file list section and change them.</h6>
+                                    <h6 class="alert alert-primary" style="width: 300px; margin: 15px">
+                                        The key word time name is: {{ time_ms_name_events }}</h6>
+                                    <h6 class="alert alert-primary" style="width: 300px; margin: 15px">
+                                        The key word duration time name is: {{ duration_time_ms_name_events }}</h6>
+                                    {% if is_there_chart_perf_vars == 0 %}
+                                        <h6 class="alert alert-primary" style="width: 300px; margin: 15px">
+                                            The variables for chart data are: {{ chart_perf_vars }}</h6>
+                                    {% else %}
+                                        <h6 class="alert alert-warning" style="width: 700px; margin: 15px">
+                                            There are no variables for chart data registered. Please if you want to visualize
+                                            data in chart, set the variables in the key words for events file section.</h6>
+                                    {% endif %}
+                                {% endif %}
+                                {% if is_there_key_words_devices == 1 %}
+                                    <h6 class="alert alert-warning" style="width: 700px; margin: 15px">
+                                        There are key words for devices file/s registered. Please if they are not
+                                        for your analysis session go to the file list section and change them.</h6>
+                                    <h6 class="alert alert-primary" style="width: 300px; margin: 15px">
+                                        The key word time name is: {{ time_name_devices }}</h6>
+                                {% endif %}
+
+                            </div>
+                        </div>
+                        <div class="column">
+                            {% load static%}
+                            <img src="{% static 'img/welcome_image.jpg' %}" alt="" style="width:100%">
+                        </div>
+                    </div>
+                {% endblock %}
+            {% endif %}
+
+        {% endblock %}
+
+    </div>
+</div>
+
+</body>
+</html>

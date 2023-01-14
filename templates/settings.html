@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block Title %}<title>Settings</title> {% endblock %}
+{% load crispy_forms_tags %}
+
+{% block info %}
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <div class="container" style="margin-top: 30px">
+        <div class="form-group" style="margin: 25px 20px">
+                {% if messages %}
+                    <ul class="messages">
+                    {% for message in messages %}
+                        <p>
+                            <h5 class="alert alert-danger"> {{ message }}</h5>
+                    {% endfor %}
+                    </ul>
+                {% else %}
+        </div>
+        <div class="container" style="margin: 50px 100px">
+        <p>
+            <h6 class="alert alert-primary" style="width: 500px; margin: 15px">
+            The initial time for filtering in this session is: {{ init_time }} </h6>
+        <p>
+            <h6 class="alert alert-primary" style="width: 500px; margin: 15px">
+            The final time for filtering in this session is: {{ fin_time }} </h6>
+        <p>
+            <h5 class="alert alert-warning" style="width: 500px; margin: 15px">
+            You MUST do the filtering between the two integer values of above.
+            These values are also included in the filtering </h5>
+
+        </div>
+
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <button type="submit" class="btn btn-primary">Next</button>
+        </form>
+    </div>
+
+{% endif %}
+{% endblock %}
